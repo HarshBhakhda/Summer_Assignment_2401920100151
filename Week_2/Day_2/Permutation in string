@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        map<char,int> mp1;
+        for(int i=0;i<s1.size();i++) {
+            mp1[s1[i]]++;
+        }
+        map<char,int> mp;
+        int l=0,r=0;
+        while(l<=r&&r<s2.size()) {
+            mp[s2[r]]++;
+            if(r-l+1>s1.size()) {
+                mp[s2[l]]--;
+                if(mp[s2[l]]==0) mp.erase(s2[l]);
+                l++;
+            }
+            if(mp==mp1) return true;
+            r++;
+        }
+        return false;
+    }
+};
