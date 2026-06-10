@@ -1,0 +1,10 @@
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        string a=s+s;
+        a.erase(0,1);
+        a.pop_back();
+        if (a.find(s)!=string::npos) return true;
+        else return false;
+    }
+};
