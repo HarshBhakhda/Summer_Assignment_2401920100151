@@ -1,0 +1,30 @@
+class Solution {
+    int open=0,closed=0;
+    string s;
+    vector<string> v;
+    void rec(int level,int n) {
+        if(level==2*n) {
+            v.push_back(s);
+            return;
+        }
+        if(open<n) {
+            s.push_back('(');
+            open++;
+            rec(level+1,n);
+            s.pop_back();
+            open--;
+        }
+        if(closed<open) {
+            s.push_back(')');
+            closed++;
+            rec(level+1,n);
+            s.pop_back();
+            closed--;
+        }
+    }
+public:
+    vector<string> generateParenthesis(int n) {
+        rec(0,n);
+        return v;
+    }
+};
