@@ -1,3 +1,29 @@
-// Group Anagrams
-// Write your C++ code here
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        int n = strs.size();
+        set<map<char,int>> st;
+        vector<map<char,int>> arr;
+        vector<map<char,int>> mp(n);
 
+        for(int i = 0; i < n; i++) {
+            for(char ch : strs[i]) {
+                mp[i][ch]++;
+            }
+            if(st.find(mp[i]) == st.end()) {
+                st.insert(mp[i]);
+                arr.push_back(mp[i]);
+            }
+        }
+        vector<vector<string>> v(arr.size());
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < arr.size(); j++) {
+                if(mp[i] == arr[j]) {
+                    v[j].push_back(strs[i]);
+                    break;
+                }
+            }
+        }
+        return v;
+    }
+};
