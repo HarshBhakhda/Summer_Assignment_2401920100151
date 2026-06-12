@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int n = chars.size();
+        char a = chars[0];
+        int cnt = 1;
+        int ans = 1;
+
+        for(int i = 1; i < n; i++) {
+            if(chars[i] == a) {
+                cnt++;
+            } else {
+                if(cnt > 1) {
+                    string s = to_string(cnt);
+                    for(int j = 0; j < s.size(); j++) {
+                        chars[ans] = s[j];
+                        ans++;
+                    }
+                }
+                a = chars[i];
+                chars[ans] = a;
+                ans++;
+                cnt = 1;
+            }
+        }
+        if(cnt > 1) {
+            string s = to_string(cnt);
+            for(int j = 0; j < s.size(); j++) {
+                chars[ans] = s[j];
+                ans++;
+            }
+        }
+        return ans;
+    }
+};
