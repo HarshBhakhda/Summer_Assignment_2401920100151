@@ -3,7 +3,6 @@ public:
     string longestPalindrome(string s) {
         int left=0,right=0,n=s.size(),len=INT_MIN;
         string ans;
-        //odd palindrome
         for(int i=0;i<n;i++) {
             left=i;right=i;
             while(left>=0&&right<n&&s[left]==s[right]) {
@@ -15,7 +14,6 @@ public:
             if(len<right-left+1) ans=s.substr(left,right-left+1);
             len=max(len,right-left+1);
         }
-        //even palindrome
         for(int i=0;i<n-1;i++) {
             left=i;right=i+1;
             while(left>=0&&right<n&&s[left]==s[right]) {
