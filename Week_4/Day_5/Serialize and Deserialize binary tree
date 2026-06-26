@@ -1,0 +1,70 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Codec {
+public:
+
+    string serialize(TreeNode* t) {
+        if(t==NULL) return "";
+        string s;
+        queue<TreeNode*> q;
+        q.push(t);
+        while(!q.empty()){
+            TreeNode* n=q.front();
+            q.pop();
+            if(n==NULL){
+                s+="N,";
+                continue;
+            }
+            s+=to_string(n->val)+",";
+            q.push(n->left);
+            q.push(n->right);
+        }
+        return s;
+    }
+
+    TreeNode* deserialize(string s) {
+        if(s=="") return NULL;
+        vector<string> v;
+        string t;
+        for(char c:s){
+            if(c==','){
+                v.push_back(t);
+                t="";
+            }
+            else{
+                t+=c;
+            }
+        }
+
+        TreeNode* r=new TreeNode(stoi(v[0]));
+        queue<TreeNode*> q;
+        q.push(r);
+        int i=1;
+        while(!q.empty()){
+            TreeNode* n=q.front();
+            q.pop();
+            if(v[i]!="N"){
+                n->left=new TreeNode(stoi(v[i]));
+                q.push(n->left);
+            }
+            i++;
+            if(v[i]!="N"){
+                n->right=new TreeNode(stoi(v[i]));
+                q.push(n->right);
+            }
+            i++;
+        }
+        return r;
+    }
+};
+
+// Your Codec object will be instantiated and called as such:
+// Codec ser, deser;
+// TreeNode* ans = deser.deserialize(ser.serialize(root));
